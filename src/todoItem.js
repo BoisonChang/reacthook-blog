@@ -13,7 +13,11 @@ const TodoItemWrapper = styled.div`
 
 const TodoContent = styled.div`
   color: red;
-  ${props => props.size === 'XL' && `font-size: 14px`}
+  ${props => props.$size === 'XL' && `font-size: 14px`}
+  ${({$isDone}) => $isDone && `
+    text-decoration: line-through;
+    color: grey;
+  ` }
 `
 
   // 寫法 1： font-size: ${({size}) => size === 'XL' ? '20px' : '2px' }; 
@@ -45,15 +49,23 @@ const Button = styled.button`
 
 
 
-export default function TodoItem({size, todo, handleDeleteTodo }){
+export default function TodoItem({size, todo, handleDeleteTodo, handleToggledIsDone }){
+    const handleToggleClick = () =>{
+        handleToggledIsDone(todo.id);
+    }
+    const handleDeleteClick = () =>{
+        handleDeleteTodo(todo.id);
+    }
+
+
     return (
       <TodoItemWrapper data-todo-id={todo.id}>
-        <TodoContent size={size}>{todo.content}</TodoContent>
+        <TodoContent $isDone={todo.isDone} $size={size}>{todo.content}</TodoContent>
         <TodoButtonWrapper>
-          <Button>已完成</Button>
-          <Button onClick={()=>{
-              handleDeleteTodo(todo.id)
-          }}>刪除</Button>
+            <Button onClick={handleToggleClick}>
+              {todo.isDone ?  '改成未完成' : '改成已完成' }
+          </Button>
+          <Button onClick={handleDeleteClick}>刪除</Button>
         </TodoButtonWrapper>
       </TodoItemWrapper>
     )

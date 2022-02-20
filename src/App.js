@@ -7,7 +7,7 @@ import TodoItem from './todoItem.js';
 
 function App() {
   const [todos, setTodos] = useState([
-    {id: 1, content: '123',}
+    {id: 1, content: '123', isDone: true,}
   ]);
   const [value, setValue] = useState('');
   const [id, setId] = useState(2)
@@ -17,11 +17,11 @@ function App() {
       {
         id,
         content: value,
+        isDone: false,
       }, ...todos])
     console.log(id + '+' + value)
     setValue('');
     setId(id + 1)
-
   }
 
   const handleInputChange = e => {
@@ -32,12 +32,23 @@ function App() {
     setTodos(todos.filter(todo => todo.id !== id ))
   }
 
+  const handleToggledIsDone = id => {
+    setTodos(todos.map(todo => {
+      console.log(todo)
+      if(todo.id !== id) return todo;
+      return {
+        ...todo,
+        isDone: !todo.isDone
+      }
+    }));
+  }
+
   return (
     <div className="App">
       <input  type="text" placeholder="todo" value={value} onChange={handleInputChange} />
       <button onClick={handleButtonClick}>Add Todo</button>
       {
-        todos.map(todo => <TodoItem key={todo.id} todo={todo} handleDeleteTodo={handleDeleteTodo}></TodoItem>)
+        todos.map(todo => <TodoItem key={todo.id} todo={todo} handleToggledIsDone={handleToggledIsDone} handleDeleteTodo={handleDeleteTodo}></TodoItem>)
       }
     </div>
   );
