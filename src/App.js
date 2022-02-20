@@ -1,20 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
-import styled from 'styled-components';
-import { useState, useRef, useEffect, useLayoutEffect }   from 'react';
 import TodoItem from './todoItem.js';
 import useTodos from './useTodos';
 
 function App() { 
   const {
     todos, 
-    setTodos, 
-    id,
     handleButtonClick,
     handleDeleteTodo,
     handleToggledIsDone,
     value, 
-    setValue, 
     handleChange
   } = useTodos();
   
