@@ -8,7 +8,6 @@ function Button({onClick, children}) {
 
 const MemoButton = memo(Button);
 
-
 const redStyle = {
   borderColor: 'red'
 }
@@ -30,6 +29,8 @@ function App() {
     console.log('calculte tryMemo color');
     return value ? redStyle : blueStyle;
   }, [value]) 
+
+  // 當輸入值改變才會重新計算，若是改變狀態就不會。
 
   return (
     <div className="App">
