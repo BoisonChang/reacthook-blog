@@ -1,23 +1,40 @@
 import logo from './logo.svg';
 import './App.css';
+import styled from 'styled-components';
+import { useState, useRef }   from 'react';
+import TodoItem from './todoItem.js';
+
 
 function App() {
+  const [todos, setTodos] = useState([
+    {id: 1, content: '123',}
+  ]);
+  const [value, setValue] = useState('');
+  const [id, setId] = useState(2)
+
+  const handleButtonClick = () => {
+    setTodos([
+      {
+        id,
+        content: value,
+      }, ...todos])
+    console.log(id + '+' + value)
+    setValue('');
+    setId(id + 1)
+
+  }
+
+  const handleInputChange = (e) => {
+    setValue(e.target.value)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input  type="text" placeholder="todo" value={value} onChange={handleInputChange} />
+      <button onClick={handleButtonClick}>Add Todo</button>
+      {
+        todos.map(todo => <TodoItem key={todo.id} todo={todo}></TodoItem>)
+      }
     </div>
   );
 }
