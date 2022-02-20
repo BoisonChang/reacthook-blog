@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import styled from 'styled-components';
-import { useState, useRef, useEffect }   from 'react';
+import { useState, useRef, useEffect, useLayoutEffect }   from 'react';
 import TodoItem from './todoItem.js';
 
 
@@ -9,21 +9,28 @@ function  writeTodosToLocalStorage(todos) {
   window.localStorage.setItem('todos', JSON.stringify(todos))  
 }
 
-function App() {
-  const [todos, setTodos] = useState([{id: 1, content: '123', isDone: true,}]);
+
+
+function App() { 
+  const [id, setId] = useState(1)
+  const [todos, setTodos] = useState(() => {
+    let todoData = window.localStorage.getItem('todos') || "";
+    if (todoData){
+      console.log('hi there are no Data.')
+      todoData = JSON.parse(todoData); 
+      setId(id => todoData[0].id + 1)
+    } else {
+      console.log('hi there are  Data.')
+      todoData = []
+    }
+    return todoData
+  });
+
   const [value, setValue] = useState('');
-  const [id, setId] = useState(2)
-
-
-  useEffect(() =>{
-      const todoData =  window.localStorage.getItem('todos') || ''
-      if(todoData) {
-        setTodos(JSON.parse(todoData))
-      }
-  }, [])
 
   useEffect(() =>{
     writeTodosToLocalStorage(todos)
+
   }, [todos])
 
   const handleButtonClick = () => {
@@ -34,7 +41,7 @@ function App() {
         isDone: false,
       }, ...todos])
     setValue('');
-    setId(id + 1)
+    setId(id +1)
   }
 
   const handleInputChange = e => {
