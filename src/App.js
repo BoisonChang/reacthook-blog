@@ -43,6 +43,8 @@ function App() {
     }));
   }
 
+  //
+
   return (
     <div className="App">
       <input  type="text" placeholder="todo" value={value} onChange={handleInputChange} />
