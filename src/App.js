@@ -24,8 +24,12 @@ function App() {
 
   }
 
-  const handleInputChange = (e) => {
+  const handleInputChange = e => {
     setValue(e.target.value)
+  }
+
+  const handleDeleteTodo = id => {
+    setTodos(todos.filter(todo => todo.id !== id ))
   }
 
   return (
@@ -33,7 +37,7 @@ function App() {
       <input  type="text" placeholder="todo" value={value} onChange={handleInputChange} />
       <button onClick={handleButtonClick}>Add Todo</button>
       {
-        todos.map(todo => <TodoItem key={todo.id} todo={todo}></TodoItem>)
+        todos.map(todo => <TodoItem key={todo.id} todo={todo} handleDeleteTodo={handleDeleteTodo}></TodoItem>)
       }
     </div>
   );

@@ -45,16 +45,16 @@ const Button = styled.button`
 
 
 
-function TodoItem({size, todo }){
+export default function TodoItem({size, todo, handleDeleteTodo }){
     return (
       <TodoItemWrapper data-todo-id={todo.id}>
         <TodoContent size={size}>{todo.content}</TodoContent>
         <TodoButtonWrapper>
           <Button>已完成</Button>
-          <Button>刪除</Button>
+          <Button onClick={()=>{
+              handleDeleteTodo(todo.id)
+          }}>刪除</Button>
         </TodoButtonWrapper>
       </TodoItemWrapper>
     )
   }
-
-export default TodoItem;
