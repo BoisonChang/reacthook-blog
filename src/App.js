@@ -1,10 +1,19 @@
 import TodoItem from './todoItem.js';
 import useTodos from './useTodos';
-import {memo, useMemo} from 'react';
+import React, {memo, useMemo}  from 'react';
 
-function Button({onClick, children}) {
-  return <button onClick={onClick}>{children}</button>
+// function Button({onClick, children}) {
+//   return <button onClick={onClick}>{children}</button>
+// }
+
+class Button extends React.Component {
+  render() {
+    const {onClick, children} = this.props;
+    return <button onClick={onClick}>{children}</button>
+  }
 }
+
+
 
 const MemoButton = memo(Button);
 

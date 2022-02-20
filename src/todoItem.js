@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { MEDIA_QUERY_MD, MEDIA_QUERY_LG } from './constants/style'
-
+import React from 'react';
 
 const TodoItemWrapper = styled.div`
   display: flex;
@@ -48,25 +48,69 @@ const Button = styled.button`
 `
 
 
-
-export default function TodoItem({size, todo, handleDeleteTodo, handleToggledIsDone }){
-    const handleToggleClick = () =>{
-        handleToggledIsDone(todo.id);
-    }
-    const handleDeleteClick = () =>{
-        handleDeleteTodo(todo.id);
+export default class TodoItemC extends React.Component{
+    constructor(props){
+        super(props)
+        this.handleToggleClick = this.handleToggleClick.bind(this)
+        this.handleDeleteClick = this.handleDeleteClick.bind(this)
     }
 
+    handleToggleClick() {
+        const {handleToggledIsDone, todo} = this.props
+        handleToggledIsDone(todo.id)
+    }
 
-    return (
-      <TodoItemWrapper data-todo-id={todo.id}>
-        <TodoContent $isDone={todo.isDone} $size={size}>{todo.content}</TodoContent>
-        <TodoButtonWrapper>
-            <Button onClick={handleToggleClick}>
-              {todo.isDone ?  '改成未完成' : '改成已完成' }
-          </Button>
-          <Button onClick={handleDeleteClick}>刪除</Button>
-        </TodoButtonWrapper>
-      </TodoItemWrapper>
-    )
-  }
+    handleDeleteClick() {
+        const {handleDeleteTodo, todo} = this.props
+        handleDeleteTodo(todo.id)
+    }
+
+    render() {
+        const {
+            size, 
+            todo, 
+            handleDeleteTodo, 
+            handleToggledIsDone            
+        } = this.props
+
+        return (
+            <TodoItemWrapper data-todo-id={todo.id}>
+            <TodoContent $isDone={todo.isDone} $size={size}>{todo.content}</TodoContent>
+            <TodoButtonWrapper>
+                <Button onClick={this.handleToggleClick}>
+                  {todo.isDone ?  '改成未完成' : '改成已完成' }
+              </Button>
+              <Button onClick={this.handleDeleteClick}>刪除</Button>
+            </TodoButtonWrapper>
+          </TodoItemWrapper>          
+        )
+    }
+}
+
+// export default function TodoItem({
+//     size, 
+//     todo, 
+//     handleDeleteTodo, 
+//     handleToggledIsDone 
+// }){
+
+//     const handleToggleClick = () =>{
+//         handleToggledIsDone(todo.id);
+//     }
+//     const handleDeleteClick = () =>{
+//         handleDeleteTodo(todo.id);
+//     }
+
+
+//     return (
+//       <TodoItemWrapper data-todo-id={todo.id}>
+//         <TodoContent $isDone={todo.isDone} $size={size}>{todo.content}</TodoContent>
+//         <TodoButtonWrapper>
+//             <Button onClick={handleToggleClick}>
+//               {todo.isDone ?  '改成未完成' : '改成已完成' }
+//           </Button>
+//           <Button onClick={handleDeleteClick}>刪除</Button>
+//         </TodoButtonWrapper>
+//       </TodoItemWrapper>
+//     )
+//   }
