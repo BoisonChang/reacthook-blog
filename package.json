@@ -1,6 +1,6 @@
 {
-  "name": "messageboard",
-  "homepage": "https://boisonchang.github.io/react-messageboard",
+  "name": "reacthook-blog",
+  "homepage": "https://boisonchang.github.io/reacthook-blog",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
